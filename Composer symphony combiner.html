@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Composer.trade Symphony Combiner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-4xl mx-auto p-6 md:p-8">
+        <div class="bg-gray-800 rounded-2xl shadow-2xl p-6 md:p-8">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-white">Composer.trade Symphony Combiner</h1>
+                <p class="text-gray-400 mt-2">Upload up to 3 symphony files to combine their unique logic.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div id="file-uploader-1" class="bg-gray-700 p-6 rounded-lg text-center">
+                    <label for="file1" class="cursor-pointer block">
+                        <svg class="w-12 h-12 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-4-4V7a4 4 0 014-4h10a4 4 0 014 4v5a4 4 0 01-4 4H7z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 16v1a2 2 0 01-2 2H6a2 2 0 01-2-2v-1"></path></svg>
+                        <span class="mt-2 block text-sm font-medium text-gray-300">Symphony 1</span>
+                        <span id="file-name-1" class="text-xs text-gray-500 block truncate"></span>
+                    </label>
+                    <input type="file" id="file1" class="hidden" accept=".txt">
+                </div>
+                <div id="file-uploader-2" class="bg-gray-700 p-6 rounded-lg text-center">
+                    <label for="file2" class="cursor-pointer block">
+                         <svg class="w-12 h-12 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-4-4V7a4 4 0 014-4h10a4 4 0 014 4v5a4 4 0 01-4 4H7z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 16v1a2 2 0 01-2 2H6a2 2 0 01-2-2v-1"></path></svg>
+                        <span class="mt-2 block text-sm font-medium text-gray-300">Symphony 2</span>
+                         <span id="file-name-2" class="text-xs text-gray-500 block truncate"></span>
+                    </label>
+                    <input type="file" id="file2" class="hidden" accept=".txt">
+                </div>
+                <div id="file-uploader-3" class="bg-gray-700 p-6 rounded-lg text-center">
+                    <label for="file3" class="cursor-pointer block">
+                         <svg class="w-12 h-12 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-4-4V7a4 4 0 014-4h10a4 4 0 014 4v5a4 4 0 01-4 4H7z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 16v1a2 2 0 01-2 2H6a2 2 0 01-2-2v-1"></path></svg>
+                        <span class="mt-2 block text-sm font-medium text-gray-300">Symphony 3</span>
+                         <span id="file-name-3" class="text-xs text-gray-500 block truncate"></span>
+                    </label>
+                    <input type="file" id="file3" class="hidden" accept=".txt">
+                </div>
+            </div>
+
+            <div class="text-center mb-8">
+                <button id="combine-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Combine Symphonies</button>
+            </div>
+            
+             <!-- Message Box -->
+            <div id="message-box" class="hidden fixed top-5 right-5 bg-red-500 text-white py-2 px-4 rounded-lg shadow-lg animate-pulse">
+                <p id="message-text"></p>
+            </div>
+
+            <div class="relative">
+                <textarea id="output" class="w-full h-96 bg-gray-900 border border-gray-700 rounded-lg p-4 font-mono text-sm resize-none" readonly placeholder="Combined symphony will appear here..."></textarea>
+                <button id="copy-btn" class="absolute top-4 right-4 bg-gray-700 hover:bg-gray-600 text-gray-300 font-semibold py-2 px-4 rounded-lg transition duration-300 text-xs">Copy to Clipboard</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fileInputs = [document.getElementById('file1'), document.getElementById('file2'), document.getElementById('file3')];
+        const fileNameSpans = [document.getElementById('file-name-1'), document.getElementById('file-name-2'), document.getElementById('file-name-3')];
+        const fileUploaderDivs = [document.getElementById('file-uploader-1'), document.getElementById('file-uploader-2'), document.getElementById('file-uploader-3')];
+
+        const combineBtn = document.getElementById('combine-btn');
+        const outputTextarea = document.getElementById('output');
+        const copyBtn = document.getElementById('copy-btn');
+        const messageBox = document.getElementById('message-box');
+        const messageText = document.getElementById('message-text');
+
+
+        fileInputs.forEach((input, index) => {
+            input.addEventListener('change', () => {
+                if (input.files.length > 0) {
+                    fileNameSpans[index].textContent = input.files[0].name;
+                    fileUploaderDivs[index].classList.add('border-2', 'border-blue-500');
+                } else {
+                    fileNameSpans[index].textContent = '';
+                    fileUploaderDivs[index].classList.remove('border-2', 'border-blue-500');
+                }
+            });
+        });
+
+        function showMessage(message, isError = false) {
+            messageText.textContent = message;
+            messageBox.className = 'fixed top-5 right-5 text-white py-2 px-4 rounded-lg shadow-lg';
+            if(isError) {
+                 messageBox.classList.add('bg-red-500');
+            } else {
+                 messageBox.classList.add('bg-green-500');
+            }
+            messageBox.classList.remove('hidden');
+
+            setTimeout(() => {
+                messageBox.classList.add('hidden');
+            }, 3000);
+        }
+        
+        combineBtn.addEventListener('click', async () => {
+            const files = fileInputs.map(input => input.files[0]).filter(Boolean);
+            if (files.length === 0) {
+                showMessage("Please select at least one file.", true);
+                return;
+            }
+
+            const contents = await Promise.all(files.map(file => file.text()));
+
+            try {
+                const combinedSymphony = combineSymphonies(contents);
+                
+                outputTextarea.value = combinedSymphony;
+                showMessage("Symphonies combined successfully!");
+
+            } catch(e) {
+                showMessage(`Error combining symphonies: ${e.message}`, true);
+                outputTextarea.value = `Error: ${e.message}`;
+            }
+
+        });
+
+        copyBtn.addEventListener('click', () => {
+            if (outputTextarea.value) {
+                // A more robust way to copy that works in more environments
+                const textarea = document.createElement('textarea');
+                textarea.value = outputTextarea.value;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    showMessage("Copied to clipboard!");
+                } catch (err) {
+                    showMessage("Failed to copy.", true);
+                }
+                document.body.removeChild(textarea);
+
+            } else {
+                showMessage("Nothing to copy.", true);
+            }
+        });
+
+        function findMatchingParen(text, start) {
+            let depth = 1;
+            for (let i = start + 1; i < text.length; i++) {
+                if (text[i] === '(') {
+                    depth++;
+                } else if (text[i] === ')') {
+                    depth--;
+                }
+                if (depth === 0) {
+                    return i;
+                }
+            }
+            return -1; // Not found
+        }
+        
+        function getTopLevelGroups(symphonyContent) {
+            const groups = [];
+            let searchIndex = 0;
+            
+            // Find the first opening parenthesis of the main content block
+            const firstParen = symphonyContent.indexOf('(');
+            if (firstParen === -1) return groups;
+
+            const secondParen = symphonyContent.indexOf('(', firstParen + 1);
+            if (secondParen === -1) return groups;
+
+            searchIndex = secondParen;
+            
+            while ((searchIndex = symphonyContent.indexOf('(group', searchIndex)) !== -1) {
+                const closingParenIndex = findMatchingParen(symphonyContent, searchIndex);
+                if (closingParenIndex !== -1) {
+                    groups.push(symphonyContent.substring(searchIndex, closingParenIndex + 1).trim());
+                    searchIndex = closingParenIndex + 1;
+                } else {
+                    // Avoid infinite loop if there's a syntax error
+                    searchIndex++;
+                }
+            }
+            return groups;
+        }
+
+        function combineSymphonies(contents) {
+            const uniqueGroups = new Set();
+
+            contents.forEach(content => {
+                const groups = getTopLevelGroups(content);
+                groups.forEach(group => uniqueGroups.add(group));
+            });
+
+            if (uniqueGroups.size === 0) {
+                return "(defsymphony\n \"Combined Symphony\"\n {:asset-class \"EQUITIES\", :rebalance-frequency :daily}\n (weight-equal\n  ;; No valid groups found to combine.\n ))";
+            }
+            
+            const combinedGroups = Array.from(uniqueGroups).join('\n   ');
+
+            return `(defsymphony
+ "Combined Symphony | ${new Date().toLocaleDateString()}"
+ {:asset-class "EQUITIES", :rebalance-frequency :daily}
+ (weight-equal
+  [${combinedGroups}]
+ )
+)`;
+        }
+
+    </script>
+</body>
+</html>
+
+
