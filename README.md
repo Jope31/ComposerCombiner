@@ -23,7 +23,9 @@ The tool analyzes the top-level (group ...) blocks within each uploaded file, re
 4. **Combine:** Click the "Combine Symphonies" button.  
 5. **Review Output:** The combined symphony will appear in the text area below the button. The tool will have created a new (defsymphony ...) wrapper with a new title and the current date.  
 6. **Copy:** Click the "Copy to Clipboard" button to copy the entire combined script.  
-7. **Paste into Composer:** Paste the copied script into a new symphony in your Composer.trade account.
+7. **Paste into Composer:** Paste the copied script into a draft symphony using the "create with AI" button, and "Code" view selector.
+<img width="1310" height="709" alt="image" src="https://github.com/user-attachments/assets/e6312916-f7e6-483b-aedf-864fb145d094" />
+8. **Insert and Backtest!**
 
 ## **Technical Details**
 
