@@ -17,12 +17,13 @@ The tool analyzes the top-level (group ...) blocks within each uploaded file, re
 
 ## **How to Use**
 
-1. **Open symphony\_combiner.html:** Open the HTML file in any modern web browser (like Chrome, Firefox, or Safari).  
-2. **Upload Files:** Click on the "Symphony 1", "Symphony 2", and "Symphony 3" upload areas to select the .txt files containing the symphonies you wish to combine. You can select from one to three files.  
-3. **Combine:** Click the "Combine Symphonies" button.  
-4. **Review Output:** The combined symphony will appear in the text area below the button. The tool will have created a new (defsymphony ...) wrapper with a new title and the current date.  
-5. **Copy:** Click the "Copy to Clipboard" button to copy the entire combined script.  
-6. **Paste into Composer:** Paste the copied script into a new symphony in your Composer.trade account.
+1. **Get Composer Code:** Open a symphony's page and click the "Get Composer Code" under the "...More" button on the top right. Paste and save this into a .txt file.
+2. **Open symphony\_combiner.html:** Open the HTML file in any modern web browser (like Chrome, Firefox, or Safari).  
+3. **Upload Files:** Click on the "Symphony 1", "Symphony 2", and "Symphony 3" upload areas to select the .txt files containing the symphonies you wish to combine. You can select from one to three files.  
+4. **Combine:** Click the "Combine Symphonies" button.  
+5. **Review Output:** The combined symphony will appear in the text area below the button. The tool will have created a new (defsymphony ...) wrapper with a new title and the current date.  
+6. **Copy:** Click the "Copy to Clipboard" button to copy the entire combined script.  
+7. **Paste into Composer:** Paste the copied script into a new symphony in your Composer.trade account.
 
 ## **Technical Details**
 
