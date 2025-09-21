@@ -17,15 +17,16 @@ The tool analyzes the top-level (group ...) blocks within each uploaded file, re
 
 ## **How to Use**
 
-1. **Get Composer Code:** Open a symphony's page and click the "Get Composer Code" under the "...More" button on the top right. Paste and save this into a .txt file.
+1. **Get Composer Code:** Open a symphony's page and click the "Copy Composer Code" under the "...More" button on the top right. Paste and save this into a .txt file.
+<img width="1481" height="340" alt="image" src="https://github.com/user-attachments/assets/ef317e54-0cd0-4c96-b0c8-fc4386690129" /><br>
 2. **Open symphony\_combiner.html:** Open the HTML file in any modern web browser (like Chrome, Firefox, or Safari).  
 3. **Upload Files:** Click on the "Symphony 1", "Symphony 2", and "Symphony 3" upload areas to select the .txt files containing the symphonies you wish to combine. You can select from one to three files.  
 4. **Combine:** Click the "Combine Symphonies" button.  
 5. **Review Output:** The combined symphony will appear in the text area below the button. The tool will have created a new (defsymphony ...) wrapper with a new title and the current date.  
 6. **Copy:** Click the "Copy to Clipboard" button to copy the entire combined script.  
 7. **Paste into Composer:** Paste the copied script into a draft symphony using the "create with AI" button, and "Code" view selector.
-<img width="1310" height="709" alt="image" src="https://github.com/user-attachments/assets/e6312916-f7e6-483b-aedf-864fb145d094" />
-8. Insert & Backtest!
+<img width="1310" height="709" alt="image" src="https://github.com/user-attachments/assets/e6312916-f7e6-483b-aedf-864fb145d094" /><br>
+8. **Insert & Backtest!**
 
 ## **Technical Details**
 
